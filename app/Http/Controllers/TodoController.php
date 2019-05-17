@@ -10,28 +10,25 @@ use App\alumno;
 
 class TodoController extends Controller
 {
-    private $id;
-    
-    public function login(Request $request)
-    {   
-        $padre = padre::where('username',$request->user)->
-        where('password',$request->pass)
-        ->get();
-        if(empty($padre) && !isset($padre)){
-            return view('welcome');
+    private $x;
+
+    public function login(Request $r)
+    {
+
+        if($r->user=='admin' && $r->pass=='admin'){
+            $this->x=1;
+            return redirect('/Tude/'.$this->x);
         }else{
-            $this->x=$padre[0]->id;
-            return redirect('/Tude/'.$padre[0]->id);
+            return redirect('/');
         }
 
-       
-        
+
+
     }
 
     public function Tude($id)
     {
-        $padre = padre::find($id);
-        return view('inicio',compact('padre'));
+        return view('inicio');
     }
 
     public function newPadre() {
@@ -42,17 +39,17 @@ class TodoController extends Controller
         $padre=padre::all();
         $grupo=grupos::join('maestros','grupos.id_maestros','maestros.id')->get();
         return view('newAlumno',compact('padre','grupo'));
-        
+
     }
     public function newProfesor(){
         return view('newProfesor');
-        
+
     }
 
     public function newGrupo(){
         $prof= maestro::all();
         return view('newGrupo',compact('prof'));
-        
+
     }
 
     public function storeAlumno(Request $r){
@@ -65,7 +62,7 @@ class TodoController extends Controller
         $alumno->save();
         return redirect('/Tude/'.$this->x);
 
-        
+
     }
     public function storePadre(Request $r){
         $padre = new padre();
@@ -85,12 +82,12 @@ class TodoController extends Controller
         $padre->parentesco=$r->parentesco;
         $padre->sexo=$r->sexo;
         $padre->ine=$r->ine;
-        
+
         $padre->username=$r->user;
         $padre->password=$r->pass;
         $padre->save();
         return redirect('/Tude/'.$this->x);
-        
+
     }
     public function storeGrupo(Request $r){
         $grupos = new grupos();
@@ -99,7 +96,7 @@ class TodoController extends Controller
         $grupos->grupo=$r->grupo;
         $grupos->save();
         return redirect('/Tude/'.$this->x);
-        
+
     }
     public function storeProfesor(Request $r){
         $padre = new maestro();
@@ -122,8 +119,8 @@ class TodoController extends Controller
         $padre->password=$r->pass;
         $padre->save();
         return redirect('/Tude/'.$this->x);
-        
+
     }
 
-  
+
 }

@@ -1,15 +1,15 @@
 @extends('layaout.app')
 @section('title','Tude')
-    
+
 @section('content')
 <div class="card" style=>
-        <img style="height: 100px; width:100px; display:block; margin:auto;" src="{{$padre->foto}}" alt="">
+
         <div class="card-body">
           <h5 class="card-title">Bienvenido</h5>
           <p class="card-text">
-              {{$padre->nombre}}
+
               <br>
-              {{$padre->ine}}
+
           </p>
         </div>
         <ul class="list-group list-group-flush">
